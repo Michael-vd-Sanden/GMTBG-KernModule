@@ -36,24 +36,30 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Move();
+
+        //if (isInvincible)
+        //{
+        //    invincibleTimer -= Time.deltaTime;
+        //    if (invincibleTimer < 0)
+        //    { isInvincible = false; }
+        //}
+    }
+
+    private void Move()
+    {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
-        Vector2 move = new Vector2(horizontal, vertical);
-
-        if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+        float moveBy = horizontal * speed;
+        rigidbody.velocity = new Vector2(moveBy, rigidbody.velocity.y);
+        if (moveBy > 0f)
         {
-            lookDirection.Set(move.x, move.y);
-            lookDirection.Normalize();
+            transform.localScale = new Vector3(1f, 1f, 1f);
         }
-       // animator.SetFloat("Look X", lookDirection.x);
-       // animator.SetFloat("Look Y", lookDirection.y);
-
-        if (isInvincible)
+        else if (moveBy < 0f)
         {
-            invincibleTimer -= Time.deltaTime;
-            if (invincibleTimer < 0)
-            { isInvincible = false; }
+            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
     }
 
