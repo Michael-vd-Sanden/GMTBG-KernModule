@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,11 +27,14 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 3f;
 
+    private SpriteRenderer[] Players;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
 
+        Players = GetComponentsInChildren<SpriteRenderer>();
         //animator = GetComponent<Animator>();
     }
 
@@ -44,6 +48,7 @@ public class PlayerController : MonoBehaviour
         //    if (invincibleTimer < 0)
         //    { isInvincible = false; }
         //}
+
     }
 
     private void Move()
@@ -55,11 +60,17 @@ public class PlayerController : MonoBehaviour
         rigidbody.velocity = new Vector2(moveBy, rigidbody.velocity.y);
         if (moveBy > 0f)
         {
-            transform.localScale = new Vector3(1f, 1f, 1f);
+            foreach (SpriteRenderer s in Players)
+            {
+                s.flipX = false;
+            }
         }
         else if (moveBy < 0f)
         {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
+            foreach (SpriteRenderer s in Players)
+            {
+                s.flipX = true;
+            }
         }
     }
 
