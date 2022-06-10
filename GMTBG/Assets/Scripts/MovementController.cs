@@ -11,9 +11,10 @@ public class MovementController : MonoBehaviour
     float horizontal;
     float vertical;
 
-    public Tilemap purpleTiles;
+    public Tilemap floorTiles;
+    public Tile greenTile;
+    public Tile purpleTile;
 
-    public int cureRange = 1;
     void Start()
     {
         
@@ -45,7 +46,7 @@ public class MovementController : MonoBehaviour
 
     public void GetMovementDirection()
     {
-        if(horizontal < 0)
+        if (horizontal < 0)
         {
             if (vertical > 0)
             {
@@ -60,6 +61,10 @@ public class MovementController : MonoBehaviour
                 direction = new Vector3(-1, 0, 0);
             }
             transform.position += direction;
+            Vector3Int currentPlayerTile = floorTiles.WorldToCell(transform.position);
+            if (floorTiles.GetTile(currentPlayerTile) != purpleTile && floorTiles.GetTile(currentPlayerTile) != greenTile)
+            { transform.position -= direction; }
+
         }
         else if (horizontal > 0)
         {
@@ -76,20 +81,18 @@ public class MovementController : MonoBehaviour
                 direction = new Vector3(1, 0, 0);
             }
             transform.position += direction;
+            Vector3Int currentPlayerTile = floorTiles.WorldToCell(transform.position);
+            if (floorTiles.GetTile(currentPlayerTile) != purpleTile && floorTiles.GetTile(currentPlayerTile) != greenTile)
+            { transform.position -= direction; }
         }
     }
 
     public void RemovepurpleTiles()
     {
-        Vector3Int currentPlayerTile = purpleTiles.WorldToCell(transform.position);
+        Vector3Int currentPlayerTile = floorTiles.WorldToCell(transform.position);
 
-        for(int x = -cureRange; x <= cureRange; x++)
-        {
-            for(int y = -cureRange; y <= cureRange; y++)
-            {
-                purpleTiles.SetTile(currentPlayerTile + new Vector3Int(x, y, 0), null);
-            }
-        }
+        if (floorTiles.GetTile(currentPlayerTile) == purpleTile)
+        { floorTiles.SetTile(currentPlayerTile, greenTile); }
     }
 
 }

@@ -5,8 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class LoadScenes : MonoBehaviour
 {
+
     public void loadBattleScene()
     {
-        SceneManager.LoadScene("BattleScene");
+        SceneManager.LoadScene("BattleScene");  
+    }
+
+    public void loadMainScene()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public string getActiveScene()
+    {
+        return SceneManager.GetActiveScene().name;
     }
 }

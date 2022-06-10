@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 4526981933493008491}
   - component: {fileID: 4526981933493008484}
   - component: {fileID: 1657674449}
+  - component: {fileID: 6990097545476996604}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Monster
@@ -157,7 +158,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 6055330991791977397, guid: f5e2eb2b418cf68408b3149719ac4020, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.4375, y: 1.875}
@@ -192,3 +193,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4375, y: 1.875}
   m_EdgeRadius: 0
+--- !u!95 &6990097545476996604
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4526981933493008485}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f19abbb88ddc353478d49f25cc9eebd6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
