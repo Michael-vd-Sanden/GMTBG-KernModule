@@ -95,4 +95,11 @@ public class MovementController : MonoBehaviour
         { floorTiles.SetTile(currentPlayerTile, greenTile); }
     }
 
+    public void SetPlayersBack()
+    {
+        direction = new Vector3(-1, 0, 0);
+
+        transform.position += direction;
+    }
+
 }

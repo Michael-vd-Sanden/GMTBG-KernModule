@@ -5,7 +5,9 @@ using UnityEngine;
 public class GetMonster : MonoBehaviour
 {
     public MonsterScript[] monsters;
-    [SerializeField] private int monsterIndex = -1;
+    [SerializeField] private int monsterIndex = 0;
+
+    [SerializeField] private GameObject arrow;
 
     public void ChangeMonsterIndex()
     {
@@ -13,6 +15,19 @@ public class GetMonster : MonoBehaviour
         { monsterIndex = 0; }
         else
         { monsterIndex++; }
+
+        if(monsterIndex == 0)
+        {
+            arrow.transform.position = new Vector3(0, 0, 0);
+        }
+        else if (monsterIndex == 1)
+        {
+            arrow.transform.position = new Vector3(0.8f, 0, 0);
+        }
+        else if (monsterIndex == 2)
+        {
+            arrow.transform.position = new Vector3(-0.8f, 0, 0);
+        }
     }
 
     public MonsterScript getActiveMonster()

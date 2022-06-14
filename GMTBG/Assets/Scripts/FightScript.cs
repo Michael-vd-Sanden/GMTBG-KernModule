@@ -6,9 +6,11 @@ public class FightScript : MonoBehaviour
 {
     public int speed = 10;
     public GameObject successBar;
+    public bool isActive = true;
 
     private Rigidbody2D rb;
-    public bool isActive = true;
+    private GameObject gameManager;
+    private ManagerPlayers managePlayers;
 
     [SerializeField] private GameObject attackScreen;
     [SerializeField] GetMonster getMonster;
@@ -18,6 +20,8 @@ public class FightScript : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        managePlayers = gameManager.GetComponent<ManagerPlayers>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -25,14 +29,21 @@ public class FightScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
+            getMonster.ChangeMonsterIndex();
             isActive = false;
             CheckIfWon();
         }
         if(getMonster.checkIfActive())
         {
             Debug.Log("You won bitch");
+            managePlayers.setPlayersToTrue();
             scenes.loadMainScene();
         }
+    }
+
+    public void SetSuccessbarScale(float s)
+    {
+        successBar.transform.localScale = new Vector3(s, 0.175f, 0);
     }
 
     public void CheckIfWon()
@@ -49,7 +60,6 @@ public class FightScript : MonoBehaviour
         }
         attackScreen.SetActive(false);
     }
-
 
     private void FixedUpdate()
     {

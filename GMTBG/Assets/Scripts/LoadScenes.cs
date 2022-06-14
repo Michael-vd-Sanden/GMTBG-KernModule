@@ -8,12 +8,13 @@ public class LoadScenes : MonoBehaviour
 
     public void loadBattleScene()
     {
-        SceneManager.LoadScene("BattleScene");  
+        SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);  
     }
 
     public void loadMainScene()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.UnloadSceneAsync("BattleScene");
+        //SceneManager.LoadScene("MainScene");
     }
 
     public string getActiveScene()
