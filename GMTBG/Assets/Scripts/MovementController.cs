@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class MovementController : MonoBehaviour
 {
+    [SerializeField] private UIManaBar mana;
+
     private Vector3 direction;
 
     bool hasMoved;
@@ -24,6 +27,10 @@ public class MovementController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             RemovepurpleTiles();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            mana.PlusMana();
         }
         Move();
     }
@@ -93,6 +100,8 @@ public class MovementController : MonoBehaviour
 
         if (floorTiles.GetTile(currentPlayerTile) == purpleTile)
         { floorTiles.SetTile(currentPlayerTile, greenTile); }
+
+        mana.MinusMana();
     }
 
     public void SetPlayersBack()
