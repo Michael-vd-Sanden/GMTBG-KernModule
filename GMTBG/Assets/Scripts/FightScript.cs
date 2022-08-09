@@ -37,7 +37,7 @@ public class FightScript : MonoBehaviour
         {
             Debug.Log("You won bitch");
             managePlayers.setPlayersToTrue();
-            scenes.loadMainScene();
+            scenes.unloadBattleScene();
         }
     }
 
