@@ -9,7 +9,14 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        health = 5;
+        if(gameObject.tag == "enemySmall")
+        { health = 5; }
+        if(gameObject.tag == "enemyMedium")
+        { health = 20; }
+        if(gameObject.tag == "enemyBig")
+        { health = 50; }
+        if(gameObject.tag == "enemyBoss")
+        { health = 100; }
         player = FindObjectOfType<FightingControlls>();
     }
 

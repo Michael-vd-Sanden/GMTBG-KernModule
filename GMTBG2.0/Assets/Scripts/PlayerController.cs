@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
 
     private bool facingRight = true;
+    [SerializeField] private SpriteRenderer playerSprite;
 
     void Start()
     {
@@ -32,17 +33,14 @@ public class PlayerController : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float moveBy = x * walkingSpeed * Time.deltaTime;
-        Vector3 tempScale = transform.localScale;
         if (x > 0 && !facingRight)
         {
-            tempScale.x = tempScale.x * -1;
-            transform.localScale = tempScale;
+            playerSprite.flipX = false;
             facingRight = true;
         }
         else if(x < 0 && facingRight)
         {
-            tempScale.x = tempScale.x * -1;
-            transform.localScale = tempScale;
+            playerSprite.flipX = true;
             facingRight = false;
         }
         rigidbody2d.velocity = new Vector2(moveBy, rigidbody2d.velocity.y);
