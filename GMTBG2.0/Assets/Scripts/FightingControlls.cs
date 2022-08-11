@@ -8,11 +8,11 @@ public class FightingControlls : MonoBehaviour
     private bool attackRadius = false;
     [SerializeField] private EnemyController enemy;
     [SerializeField] private PlayerController movement;
-    [SerializeField] private int attackDamage;
+    [SerializeField] private float attackDamage;
 
     void Start()
     {
-        attackDamage = 2;
+        attackDamage = 2f;
     }
 
     void Update()
@@ -53,8 +53,8 @@ public class FightingControlls : MonoBehaviour
     public void Grow()
     {
         movement.jumpForce += 0.3f;
-        movement.walkingSpeed += 1f;
-        attackDamage += 1;
+        movement.walkingSpeed += 10f;
+        attackDamage += 1f;
         gameObject.transform.localScale += new Vector3 (0.2f, 0.2f);
        // mainCam.cameraPlusX -= 0.04f;
         //mainCam.cameraPlusY -= 0.1f;

@@ -24,15 +24,21 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Move();
-        Jump();
         CheckIfGrounded();
+        Jump();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+        //Jump();
+        //CheckIfGrounded();
     }
 
     void Move()
     {
         float x = Input.GetAxis("Horizontal");
-        float moveBy = x * walkingSpeed * Time.deltaTime;
+        float moveBy = x * walkingSpeed * Time.fixedDeltaTime;
         if (x > 0 && !facingRight)
         {
             playerSprite.flipX = false;
