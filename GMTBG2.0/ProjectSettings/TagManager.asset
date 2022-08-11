@@ -8,6 +8,8 @@ TagManager:
   - enemyMedium
   - enemyBig
   - enemyBoss
+  - spawnPoint
+  - sceneTrigger
   layers:
   - Default
   - TransparentFX

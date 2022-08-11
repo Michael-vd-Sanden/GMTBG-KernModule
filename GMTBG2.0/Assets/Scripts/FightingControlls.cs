@@ -9,6 +9,7 @@ public class FightingControlls : MonoBehaviour
     [SerializeField] private EnemyController enemy;
     [SerializeField] private PlayerController movement;
     [SerializeField] private float attackDamage;
+    [SerializeField] private SceneSelect sceneManager;
 
     void Start()
     {
@@ -24,24 +25,6 @@ public class FightingControlls : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && attackRadius)
         {
-            //Vector2 lookdirection = Vector2.right;
-            //if (movement.facingRight)
-            //{
-            //    lookdirection = Vector2.right;
-            //}
-            //else if(movement.facingRight == false)
-            //{
-            //    lookdirection = Vector2.left;
-            //}
-
-            //RaycastHit2D hit = Physics2D.Raycast(transform.position, lookdirection, 4f);
-            //EnemyController enemyHit = hit.collider.GetComponent<EnemyController>();
-            //if(enemyHit != null)
-            //{
-            //    //attack
-            //    enemyHit.GetHit(attackDamage);
-            //}
-
             //attack
             if (enemy != null)
             {
@@ -56,19 +39,36 @@ public class FightingControlls : MonoBehaviour
         movement.walkingSpeed += 10f;
         attackDamage += 1f;
         gameObject.transform.localScale += new Vector3 (0.2f, 0.2f);
-       // mainCam.cameraPlusX -= 0.04f;
-        //mainCam.cameraPlusY -= 0.1f;
         mainCam.zoomOut();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        enemy = collision.gameObject.GetComponent<EnemyController>();
-        attackRadius = true;
+        if(collision.tag == "enemySmall" || collision.tag == "enemyMedium" || collision.tag == "enemyBig" || collision.tag == "enemyBoss")
+        {
+            enemy = collision.gameObject.GetComponent<EnemyController>();
+            attackRadius = true;
+        }
+        else if (collision.tag == "spawnPoint")
+        {
+            GameObject flag = collision.gameObject;
+            movement.setSpawnpoint(flag);
+            SpriteRenderer spriteFlag = flag.GetComponent<SpriteRenderer>();
+            BoxCollider2D colliderFlag = flag.GetComponent<BoxCollider2D>();
+            spriteFlag.flipX = false;
+            colliderFlag.enabled = false;
+        }
+        else if (collision.tag == "sceneTrigger")
+        {
+            sceneManager.loadMainScene();
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        enemy = null;
-        attackRadius = false;
+        if (collision.tag == "enemySmall" || collision.tag == "enemyMedium" || collision.tag == "enemyBig" || collision.tag == "enemyBoss")
+        {
+            enemy = null;
+            attackRadius = false;
+        }
     }
 }

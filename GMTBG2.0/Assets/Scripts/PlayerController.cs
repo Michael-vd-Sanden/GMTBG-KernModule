@@ -14,25 +14,33 @@ public class PlayerController : MonoBehaviour
     public float checkGroundRadius;
     public LayerMask groundLayer;
 
+    public float health;
+    public float maxHealth = 10f;
+    public Transform spawnPoint;
+
     private bool facingRight = true;
     [SerializeField] private SpriteRenderer playerSprite;
 
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        health = maxHealth;
     }
 
     void Update()
     {
         CheckIfGrounded();
         Jump();
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            changeHealth(-1);
+            Debug.Log(health);
+        }
     }
 
     private void FixedUpdate()
     {
         Move();
-        //Jump();
-        //CheckIfGrounded();
     }
 
     void Move()
@@ -72,5 +80,25 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    void changeHealth(float hp)
+    {
+        health += hp;
+        if (health <= 0)
+        {
+            respawn();
+            health = maxHealth;
+        }
+    }
+
+    public void setSpawnpoint(GameObject point)
+    {
+        spawnPoint = point.transform;
+    }
+
+    public void respawn()
+    {
+        gameObject.transform.position = spawnPoint.position;
     }
 }
