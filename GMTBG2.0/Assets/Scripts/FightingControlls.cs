@@ -47,6 +47,7 @@ public class FightingControlls : MonoBehaviour
         if(collision.tag == "enemySmall" || collision.tag == "enemyMedium" || collision.tag == "enemyBig" || collision.tag == "enemyBoss")
         {
             enemy = collision.gameObject.GetComponent<EnemyController>();
+            enemy.SetAttack();
             attackRadius = true;
         }
         else if (collision.tag == "spawnPoint")
@@ -67,6 +68,7 @@ public class FightingControlls : MonoBehaviour
     {
         if (collision.tag == "enemySmall" || collision.tag == "enemyMedium" || collision.tag == "enemyBig" || collision.tag == "enemyBoss")
         {
+            enemy.SetWalk();
             enemy = null;
             attackRadius = false;
         }

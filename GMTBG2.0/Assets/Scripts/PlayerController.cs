@@ -16,10 +16,17 @@ public class PlayerController : MonoBehaviour
 
     public float health;
     public float maxHealth = 10f;
+    private bool isInvincible;
+    private float invincibleTimer;
+    public float timeInvincible = 2f;
     public Transform spawnPoint;
 
     private bool facingRight = true;
     [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private SpriteMask healthMask;
+    [SerializeField] private Animator playerAnimator;
+    private float tempTotal = 0f;
+    private Vector3 Total;
 
     void Start()
     {
@@ -35,6 +42,13 @@ public class PlayerController : MonoBehaviour
         {
             changeHealth(-1);
             Debug.Log(health);
+        }
+
+        if (isInvincible)
+        {
+            invincibleTimer -= Time.deltaTime;
+            if (invincibleTimer < 0)
+            { isInvincible = false; }
         }
     }
 
@@ -82,13 +96,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void changeHealth(float hp)
+    public void changeHealth(float hp)
     {
-        health += hp;
+        if (hp < 0)
+        {
+            if (isInvincible)
+            {
+                return;
+            }
+            playerAnimator.SetTrigger("hit");
+            isInvincible = true;
+            invincibleTimer = timeInvincible;
+        }
+        health = Mathf.Clamp(health + hp, 0, maxHealth);
+        float percentage = (hp / maxHealth);
+        Vector3 tempPercentage = new Vector3(percentage, 0);
+        healthMask.transform.position += tempPercentage;
+
+        tempTotal += percentage;
+        Total = new Vector3(tempTotal, 0);
+
+        Debug.Log(health);
         if (health <= 0)
         {
             respawn();
             health = maxHealth;
+            healthMask.transform.position -= Total;
         }
     }
 
