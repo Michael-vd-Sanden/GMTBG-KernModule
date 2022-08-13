@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    Rigidbody2D rigidbody2d;
-
     [SerializeField] private float startHealth;
     [SerializeField] private FightingControlls player;
     [SerializeField] private PlayerController playerHealth;
     [SerializeField] private SpriteMask healthMask;
     [SerializeField] private SpriteRenderer enemySprite;
     [SerializeField] private Animator enemyAnimator;
+    [SerializeField] private EffectController effects;
 
     private float damage;
     private float health;
@@ -35,17 +34,10 @@ public class EnemyController : MonoBehaviour
         player = FindObjectOfType<FightingControlls>();
         playerHealth = FindObjectOfType<PlayerController>();
         health = startHealth;
-        rigidbody2d = GetComponent<Rigidbody2D>();
-
-        //float tempPointRight = transform.position.x + 2f;
-        //float tempPointLeft = transform.position.x - 2f;
-        //pointRight = new Vector3(tempPointRight, 0);
-        //pointLeft = new Vector3(tempPointLeft, 0);
     }
 
     void Update()
     {
-        //Walk();
         CheckState();
     }
 
@@ -69,6 +61,10 @@ public class EnemyController : MonoBehaviour
 
         if (health <= 0)
         {
+            if (gameObject.tag == "enemyBoss")
+            {
+                effects.Win();
+            }
             player.Grow();
             Destroy(gameObject);
         }
@@ -92,21 +88,6 @@ public class EnemyController : MonoBehaviour
     public void SetWalk()
     {
         state = stateEnum.Walk;
-    }
-
-    private void Walk()
-    {
-        if (transform.position.x >= pointRight.position.x - 0.5f)
-        {
-            currentTarget = pointLeft;
-            enemySprite.flipX = false;
-        }
-        else if (transform.position.x <= pointLeft.position.x + 0.5f)
-        {
-            currentTarget = pointRight;
-            enemySprite.flipX = true;
-        }
-        transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, walkingSpeed * Time.deltaTime);
     }
 
     private IEnumerator WalkBehaviour()

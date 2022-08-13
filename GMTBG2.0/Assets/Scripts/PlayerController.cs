@@ -16,21 +16,28 @@ public class PlayerController : MonoBehaviour
 
     public float health;
     public float maxHealth = 10f;
+    private int timesDied = 0;
     private bool isInvincible;
     private float invincibleTimer;
-    public float timeInvincible = 2f;
+    public float timeInvincible= 2f;
     public Transform spawnPoint;
+    private FightingControlls fight;
 
     private bool facingRight = true;
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private SpriteMask healthMask;
     [SerializeField] private Animator playerAnimator;
-    private float tempTotal = 0f;
-    private Vector3 Total;
+    [SerializeField] private SceneSelect scenes;
+
+    [SerializeField] private GameObject life1;
+    [SerializeField] private GameObject life2;
+    [SerializeField] private GameObject life3;
+    [SerializeField] private GameObject DeathScreen;
 
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        fight = GetComponent<FightingControlls>();
         health = maxHealth;
     }
 
@@ -38,11 +45,6 @@ public class PlayerController : MonoBehaviour
     {
         CheckIfGrounded();
         Jump();
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            changeHealth(-1);
-            Debug.Log(health);
-        }
 
         if (isInvincible)
         {
@@ -113,15 +115,26 @@ public class PlayerController : MonoBehaviour
         Vector3 tempPercentage = new Vector3(percentage, 0);
         healthMask.transform.position += tempPercentage;
 
-        tempTotal += percentage;
-        Total = new Vector3(tempTotal, 0);
-
         Debug.Log(health);
-        if (health <= 0)
+        if (health <= 0) //death
         {
-            respawn();
-            health = maxHealth;
-            healthMask.transform.position -= Total;
+            StartCoroutine(DeathBehaviour());
+        }
+    }
+
+    public void checkGameOver()
+    {
+        timesDied++;
+        switch (timesDied)
+        {
+            case 1: life3.SetActive(false);
+                break;
+            case 2: life2.SetActive(false);
+                break;
+            case 3: life1.SetActive(false);
+                break;
+            case 4: scenes.loadEndScene();
+                break;
         }
     }
 
@@ -133,5 +146,24 @@ public class PlayerController : MonoBehaviour
     public void respawn()
     {
         gameObject.transform.position = spawnPoint.position;
+    }
+
+    private IEnumerator DeathBehaviour()
+    {
+        Time.timeScale = 0;
+        DeathScreen.SetActive(true);
+        fight.enabled = false;
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        DeathScreen.SetActive(false);
+        fight.enabled = true;
+        Time.timeScale = 1;
+
+        respawn();
+        health = maxHealth;
+        healthMask.transform.localPosition = new Vector3(0, -0.7f);
+        checkGameOver();
+        yield break;
     }
 }

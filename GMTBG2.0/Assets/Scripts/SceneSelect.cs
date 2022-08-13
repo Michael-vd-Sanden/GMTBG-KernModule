@@ -14,4 +14,14 @@ public class SceneSelect : MonoBehaviour
     {
         SceneManager.LoadScene("MainScene");
     }
+
+    public void loadEndScene()
+    {
+        SceneManager.LoadScene("EndScene");
+    }
+
+    public void quit()
+    {
+        Application.Quit();
+    }
 }

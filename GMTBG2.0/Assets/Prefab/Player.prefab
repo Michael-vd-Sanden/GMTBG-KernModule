@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775313437326688742}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.71, z: 0}
+  m_LocalPosition: {x: 0, y: -0.7, z: 0}
   m_LocalScale: {x: 1.05, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3151186339247063415}
@@ -233,7 +233,7 @@ MonoBehaviour:
   walkingSpeed: 200
   jumpForce: 6
   isGroundedChecker: {fileID: 3151186339808944786}
-  checkGroundRadius: 0.3
+  checkGroundRadius: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -244,6 +244,10 @@ MonoBehaviour:
   playerSprite: {fileID: 3151186339247063414}
   healthMask: {fileID: 1096474699961137951}
   playerAnimator: {fileID: 3151186339247063420}
+  scenes: {fileID: 0}
+  life1: {fileID: 0}
+  life2: {fileID: 0}
+  life3: {fileID: 0}
 --- !u!114 &3151186339247063419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +339,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8746127943091157716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.7149997, z: 0}
+  m_LocalPosition: {x: 0, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 0.2375, z: 1}
   m_Children: []
   m_Father: {fileID: 3151186339247063415}
