@@ -8,12 +8,15 @@ public class FightingControlls : MonoBehaviour
     private bool attackRadius = false;
     [SerializeField] private EnemyController enemy;
     [SerializeField] private PlayerController movement;
-    [SerializeField] private float attackDamage;
+    [SerializeField] public float attackDamage;
     [SerializeField] private SceneSelect sceneManager;
+
+    private PlayerGrowth player;
 
     void Start()
     {
         attackDamage = 2f;
+        player = FindObjectOfType<PlayerGrowth>();
     }
 
     void Update()
@@ -33,21 +36,11 @@ public class FightingControlls : MonoBehaviour
         }
     }
 
-    public void Grow()
-    {
-        movement.jumpForce += 0.3f;
-        movement.walkingSpeed += 10f;
-        attackDamage += 1f;
-        gameObject.transform.localScale += new Vector3 (0.2f, 0.2f);
-        mainCam.zoomOut();
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "enemySmall" || collision.tag == "enemyMedium" || collision.tag == "enemyBig" || collision.tag == "enemyBoss")
+        if (collision.tag == "enemySmall" || collision.tag == "enemyMedium" || collision.tag == "enemyBig" || collision.tag == "enemyBoss")
         {
             enemy = collision.gameObject.GetComponent<EnemyController>();
-            enemy.SetAttack();
             attackRadius = true;
         }
         else if (collision.tag == "spawnPoint")
@@ -64,10 +57,12 @@ public class FightingControlls : MonoBehaviour
             sceneManager.loadMainScene();
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "enemySmall" || collision.tag == "enemyMedium" || collision.tag == "enemyBig" || collision.tag == "enemyBoss")
         {
+            enemy = collision.gameObject.GetComponent<EnemyController>();
             enemy.SetWalk();
             enemy = null;
             attackRadius = false;

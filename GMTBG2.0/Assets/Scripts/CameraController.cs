@@ -14,8 +14,35 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(player.transform.position.x + cameraPlusX, player.transform.position.y + cameraPlusY, transform.position.z);
     }
 
-    public void zoomOut()
+    public void hp1()
     {
-        cam.orthographicSize += 0.2f;
-    }    
+        cam.orthographicSize = 1.5f;
+        cameraPlusX = 1.6f;
+        cameraPlusY = 0.7f;
+    }
+
+    public void hp2()
+    {
+        cam.orthographicSize = 3f;
+        cameraPlusX = 3.2f;
+        cameraPlusY = 0.8f;
+    }
+    public void hp3()
+    {
+        cam.orthographicSize = 4.5f;
+        cameraPlusX = 4.8f;
+        cameraPlusY = 0.85f;
+    }
+    public void hp4()
+    {
+        cam.orthographicSize = 6f;
+        cameraPlusX = 6.4f;
+        cameraPlusY = 0.9f;
+    }
+    public void hp5()
+    {
+        cam.orthographicSize = 7.5f;
+        cameraPlusX = 8f;
+        cameraPlusY = 1f;
+    }
 }

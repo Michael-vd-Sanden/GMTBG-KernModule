@@ -14,31 +14,28 @@ public class PlayerController : MonoBehaviour
     public float checkGroundRadius;
     public LayerMask groundLayer;
 
-    public float health;
-    public float maxHealth = 10f;
-    private int timesDied = 0;
-    private bool isInvincible;
-    private float invincibleTimer;
-    public float timeInvincible= 2f;
+    //public float health;
+    //public float maxHealth = 10f;
+    //private int timesDied = 0;
+    //private bool isInvincible;
+    //private float invincibleTimer;
+    //public float timeInvincible= 2f;
     public Transform spawnPoint;
     private FightingControlls fight;
 
     private bool facingRight = true;
     [SerializeField] private SpriteRenderer playerSprite;
-    [SerializeField] private SpriteMask healthMask;
-    [SerializeField] private Animator playerAnimator;
+    [SerializeField] public SpriteMask healthMask;
+    [SerializeField] public Animator playerAnimator;
     [SerializeField] private SceneSelect scenes;
 
-    [SerializeField] private GameObject life1;
-    [SerializeField] private GameObject life2;
-    [SerializeField] private GameObject life3;
-    [SerializeField] private GameObject DeathScreen;
+    [SerializeField] public GameObject DeathScreen;
 
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         fight = GetComponent<FightingControlls>();
-        health = maxHealth;
+        //health = maxHealth;
     }
 
     void Update()
@@ -46,12 +43,12 @@ public class PlayerController : MonoBehaviour
         CheckIfGrounded();
         Jump();
 
-        if (isInvincible)
-        {
-            invincibleTimer -= Time.deltaTime;
-            if (invincibleTimer < 0)
-            { isInvincible = false; }
-        }
+        //if (isInvincible)
+        //{
+        //    invincibleTimer -= Time.deltaTime;
+        //    if (invincibleTimer < 0)
+        //    { isInvincible = false; }
+        //}
     }
 
     private void FixedUpdate()
@@ -98,45 +95,45 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void changeHealth(float hp)
-    {
-        if (hp < 0)
-        {
-            if (isInvincible)
-            {
-                return;
-            }
-            playerAnimator.SetTrigger("hit");
-            isInvincible = true;
-            invincibleTimer = timeInvincible;
-        }
-        health = Mathf.Clamp(health + hp, 0, maxHealth);
-        float percentage = (hp / maxHealth);
-        Vector3 tempPercentage = new Vector3(percentage, 0);
-        healthMask.transform.position += tempPercentage;
+    //public void changeHealth(float hp)
+    //{
+    //    if (hp < 0)
+    //    {
+    //        if (isInvincible)
+    //        {
+    //            return;
+    //        }
+    //        playerAnimator.SetTrigger("hit");
+    //        isInvincible = true;
+    //        invincibleTimer = timeInvincible;
+    //    }
+    //    health = Mathf.Clamp(health + hp, 0, maxHealth);
+    //    float percentage = (hp / maxHealth);
+    //    Vector3 tempPercentage = new Vector3(percentage, 0);
+    //    healthMask.transform.position += tempPercentage;
 
-        Debug.Log(health);
-        if (health <= 0) //death
-        {
-            StartCoroutine(DeathBehaviour());
-        }
-    }
+    //    Debug.Log(health);
+    //    if (health <= 0) //death
+    //    {
+    //        StartCoroutine(DeathBehaviour());
+    //    }
+    //}
 
-    public void checkGameOver()
-    {
-        timesDied++;
-        switch (timesDied)
-        {
-            case 1: life3.SetActive(false);
-                break;
-            case 2: life2.SetActive(false);
-                break;
-            case 3: life1.SetActive(false);
-                break;
-            case 4: scenes.loadEndScene();
-                break;
-        }
-    }
+    //public void checkGameOver()
+    //{
+    //    timesDied++;
+    //    switch (timesDied)
+    //    {
+    //        case 1: life3.SetActive(false);
+    //            break;
+    //        case 2: life2.SetActive(false);
+    //            break;
+    //        case 3: life1.SetActive(false);
+    //            break;
+    //        case 4: scenes.loadEndScene();
+    //            break;
+    //    }
+    //}
 
     public void setSpawnpoint(GameObject point)
     {
@@ -148,22 +145,22 @@ public class PlayerController : MonoBehaviour
         gameObject.transform.position = spawnPoint.position;
     }
 
-    private IEnumerator DeathBehaviour()
-    {
-        Time.timeScale = 0;
-        DeathScreen.SetActive(true);
-        fight.enabled = false;
+    //private IEnumerator DeathBehaviour()
+    //{
+    //    Time.timeScale = 0;
+    //    DeathScreen.SetActive(true);
+    //    fight.enabled = false;
 
-        yield return new WaitForSecondsRealtime(2f);
+    //    yield return new WaitForSecondsRealtime(2f);
 
-        DeathScreen.SetActive(false);
-        fight.enabled = true;
-        Time.timeScale = 1;
+    //    DeathScreen.SetActive(false);
+    //    fight.enabled = true;
+    //    Time.timeScale = 1;
 
-        respawn();
-        health = maxHealth;
-        healthMask.transform.localPosition = new Vector3(0, -0.7f);
-        checkGameOver();
-        yield break;
-    }
+    //    respawn();
+    //    health = maxHealth;
+    //    healthMask.transform.localPosition = new Vector3(0, -0.7f);
+    //    checkGameOver();
+    //    yield break;
+    //}
 }

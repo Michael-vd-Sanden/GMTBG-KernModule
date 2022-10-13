@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float startHealth;
     [SerializeField] private FightingControlls player;
-    [SerializeField] private PlayerController playerHealth;
+    [SerializeField] private PlayerGrowth playerHealth;
     [SerializeField] private SpriteMask healthMask;
     [SerializeField] private SpriteRenderer enemySprite;
     [SerializeField] private Animator enemyAnimator;
@@ -21,6 +21,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform pointRight, pointLeft;
     [SerializeField] private Transform currentTarget;
 
+    public enum moodEnum { Fight, Ignore, Squash}
+    public moodEnum mood;
+
     void Start()
     {
         if(gameObject.tag == "enemySmall")
@@ -32,13 +35,15 @@ public class EnemyController : MonoBehaviour
         if(gameObject.tag == "enemyBoss")
         { startHealth = 100f; damage = 15f; }
         player = FindObjectOfType<FightingControlls>();
-        playerHealth = FindObjectOfType<PlayerController>();
+        playerHealth = FindObjectOfType<PlayerGrowth>();
         health = startHealth;
     }
 
     void Update()
     {
         CheckState();
+        CheckMood();
+        CheckRelationship();
     }
 
     public void GetHit(float damage)
@@ -65,8 +70,70 @@ public class EnemyController : MonoBehaviour
             {
                 effects.Win();
             }
-            player.Grow();
+            playerHealth.changeHealth(1f);
             Destroy(gameObject);
+        }
+    }
+
+
+    public void CheckRelationship()
+    {
+        switch (playerHealth.health)
+        {
+            case 1:
+                if(gameObject.tag == "enemySmall")
+                {
+                    mood = moodEnum.Fight;
+                }
+                else if (gameObject.tag == "enemyMedium" || gameObject.tag == "enemyBig")
+                {
+                    mood = moodEnum.Ignore;
+                }
+                break;
+            case 2:
+                if (gameObject.tag == "enemySmall")
+                {
+                    mood = moodEnum.Fight;
+                }
+                else if (gameObject.tag == "enemyMedium" || gameObject.tag == "enemyBig")
+                {
+                    mood = moodEnum.Ignore;
+                }
+                break;
+            case 3:
+                if (gameObject.tag == "enemySmall")
+                {
+                    mood = moodEnum.Squash;
+                }
+                if (gameObject.tag == "enemyMedium")
+                {
+                    mood = moodEnum.Fight;
+                }
+                if (gameObject.tag == "enemyBig")
+                {
+                    mood = moodEnum.Ignore;
+                }
+                break;
+            case 4:
+                if (gameObject.tag == "enemySmall" || gameObject.tag == "enemyMedium")
+                {
+                    mood = moodEnum.Squash;
+                }
+                if (gameObject.tag == "enemyBig")
+                {
+                    mood = moodEnum.Ignore;
+                }
+                break;
+            case 5:
+                if (gameObject.tag == "enemySmall" || gameObject.tag == "enemyMedium")
+                {
+                    mood = moodEnum.Squash;
+                }
+                if (gameObject.tag == "enemyBig")
+                {
+                    mood = moodEnum.Fight;
+                }
+                break;
         }
     }
 
@@ -88,6 +155,38 @@ public class EnemyController : MonoBehaviour
     public void SetWalk()
     {
         state = stateEnum.Walk;
+    }
+
+    private void CheckMood()
+    {
+        switch(mood)
+        {
+            case moodEnum.Fight:
+                enemySprite.color = Color.red;
+                break;
+            case moodEnum.Ignore:
+                enemySprite.color = Color.gray;
+                break;
+            case moodEnum.Squash:
+                startHealth = 1;
+                enemySprite.color = Color.blue;
+                break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Player" && mood == moodEnum.Fight)
+        {
+            SetAttack();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            SetWalk();
+        }
     }
 
     private IEnumerator WalkBehaviour()
