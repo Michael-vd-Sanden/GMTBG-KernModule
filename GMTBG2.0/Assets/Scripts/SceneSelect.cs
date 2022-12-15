@@ -7,17 +7,17 @@ public class SceneSelect : MonoBehaviour
 {
     public void loadTutorialLevel()
     {
-        SceneManager.LoadScene("IntroScene");
+        SceneManager.LoadScene("TutorialScene");
     }
 
     public void loadMainScene()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("Main2.0Scene");
     }
 
     public void loadEndScene()
     {
-        SceneManager.LoadScene("EndScene");
+        SceneManager.LoadScene("StartScene");
     }
 
     public void quit()

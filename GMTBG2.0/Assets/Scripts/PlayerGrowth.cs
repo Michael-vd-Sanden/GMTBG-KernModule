@@ -6,8 +6,8 @@ public class PlayerGrowth : MonoBehaviour
 {
     //health and growth is stored here
     public float health;
-    public float maxHealth = 10f;
-    private int timesDied = 0;
+    public float maxHealth = 5f;
+    public float startHealth;
     private bool isInvincible;
     private float invincibleTimer;
     public float timeInvincible = 2f;
@@ -28,7 +28,7 @@ public class PlayerGrowth : MonoBehaviour
         controller = FindObjectOfType<PlayerController>();
         fight = FindObjectOfType<FightingControlls>();
         mainCam = FindObjectOfType<CameraController>();
-        health = maxHealth;
+        health = startHealth;
     }
 
     private void Update()
@@ -55,18 +55,18 @@ public class PlayerGrowth : MonoBehaviour
         switch (health)
         {
             case 1:
-                controller.jumpForce = 3f;
-                controller.walkingSpeed = 100f;
-                fight.attackDamage = 1f;
+                controller.jumpForce = 7f * (0.6f * controller.rigidbody2d.gravityScale);
+                controller.walkingSpeed = 250f;
+                fight.SetAttackDamage(2f);
                 gameObject.transform.localScale = new Vector3(0.5f, 0.5f);
                 mainCam.hp1();
                 SetAllLivesToNull();
                 life1.SetActive(true);
                 break;
             case 2:
-                controller.jumpForce = 6f;
-                controller.walkingSpeed = 200f;
-                fight.attackDamage = 2f;
+                controller.jumpForce = 9f * (0.6f * controller.rigidbody2d.gravityScale);
+                controller.walkingSpeed = 300f;
+                fight.SetAttackDamage(3f);
                 gameObject.transform.localScale = new Vector3(1.4f, 1.4f);
                 mainCam.hp2();
                 SetAllLivesToNull();
@@ -74,9 +74,9 @@ public class PlayerGrowth : MonoBehaviour
                 life2.SetActive(true);
                 break;
             case 3:
-                controller.jumpForce = 9f;
+                controller.jumpForce = 9f * (0.6f * controller.rigidbody2d.gravityScale);
                 controller.walkingSpeed = 300f;
-                fight.attackDamage = 3f;
+                fight.SetAttackDamage(10f);
                 gameObject.transform.localScale = new Vector3(2.6f, 2.6f);
                 mainCam.hp3();
                 SetAllLivesToNull();
@@ -85,9 +85,9 @@ public class PlayerGrowth : MonoBehaviour
                 life3.SetActive(true);
                 break;
             case 4:
-                controller.jumpForce = 12f;
+                controller.jumpForce = 12f * (0.6f * controller.rigidbody2d.gravityScale);
                 controller.walkingSpeed = 400f;
-                fight.attackDamage = 4f;
+                fight.SetAttackDamage(20f);
                 gameObject.transform.localScale = new Vector3(3.8f, 3.8f);
                 mainCam.hp4();
                 SetAllLivesToNull();
@@ -97,9 +97,9 @@ public class PlayerGrowth : MonoBehaviour
                 life4.SetActive(true);
                 break;
             case 5:
-                controller.jumpForce = 15f;
+                controller.jumpForce = 15f * (0.6f * controller.rigidbody2d.gravityScale);
                 controller.walkingSpeed = 500f;
-                fight.attackDamage = 5f;
+                fight.SetAttackDamage(25f);
                 gameObject.transform.localScale = new Vector3(5f, 5f);
                 mainCam.hp5();
                 life1.SetActive(true);
@@ -137,6 +137,11 @@ public class PlayerGrowth : MonoBehaviour
         Vector3 tempPercentage = new Vector3(percentage, 0);
         controller.healthMask.transform.position += tempPercentage;
 
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
         Debug.Log(health);
         if (health <= 0) //death
         {
@@ -156,7 +161,10 @@ public class PlayerGrowth : MonoBehaviour
         fight.enabled = true;
         Time.timeScale = 1;
 
-        scenes.loadEndScene();
+        controller.respawn();
+        health = startHealth;
+
+        //scenes.loadEndScene();
         yield break;
     }
 }

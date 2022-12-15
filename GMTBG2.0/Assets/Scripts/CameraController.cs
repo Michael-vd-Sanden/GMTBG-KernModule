@@ -16,33 +16,33 @@ public class CameraController : MonoBehaviour
 
     public void hp1()
     {
-        cam.orthographicSize = 1.5f;
-        cameraPlusX = 1.6f;
-        cameraPlusY = 0.7f;
+        //cam.orthographicSize = 5f;
+        //cameraPlusX = 2f;
+        //cameraPlusY = 0.5f;
     }
 
     public void hp2()
     {
-        cam.orthographicSize = 3f;
-        cameraPlusX = 3.2f;
-        cameraPlusY = 0.8f;
+        //cam.orthographicSize = 5f;
+        //cameraPlusX = 3.2f;
+        //cameraPlusY = 0.8f;
     }
     public void hp3()
     {
-        cam.orthographicSize = 4.5f;
-        cameraPlusX = 4.8f;
-        cameraPlusY = 0.85f;
+        //cam.orthographicSize = 5f;
+        //cameraPlusX = 4.8f;
+        //cameraPlusY = 0.85f;
     }
     public void hp4()
     {
-        cam.orthographicSize = 6f;
-        cameraPlusX = 6.4f;
-        cameraPlusY = 0.9f;
+        //cam.orthographicSize = 6f;
+        //cameraPlusX = 6.4f;
+        //cameraPlusY = 0.9f;
     }
     public void hp5()
     {
-        cam.orthographicSize = 7.5f;
-        cameraPlusX = 8f;
-        cameraPlusY = 1f;
+        //cam.orthographicSize = 7.5f;
+        //cameraPlusX = 8f;
+        //cameraPlusY = 1f;
     }
 }

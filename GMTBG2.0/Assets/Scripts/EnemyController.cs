@@ -8,12 +8,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private FightingControlls player;
     [SerializeField] private PlayerGrowth playerHealth;
     [SerializeField] private SpriteMask healthMask;
-    [SerializeField] private SpriteRenderer enemySprite;
-    [SerializeField] private Animator enemyAnimator;
+    [SerializeField] private RectTransform maskHealth;
     [SerializeField] private EffectController effects;
+    private float TotalDamage = 0f;
 
-    private float damage;
-    private float health;
+    private SpriteRenderer enemySprite;
+    private Animator enemyAnimator;
+
+    private float damage = 1f;
+    [SerializeField] private float health;
     public float walkingSpeed = 100f;
     public enum stateEnum { Walk, Attack}
     public stateEnum state;
@@ -26,14 +29,8 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        if(gameObject.tag == "enemySmall")
-        { startHealth = 5f;  damage = 1f; }
-        if (gameObject.tag == "enemyMedium")
-        { startHealth = 20f; damage = 5f; }
-        if(gameObject.tag == "enemyBig")
-        { startHealth = 50f;  damage = 10f; }
-        if(gameObject.tag == "enemyBoss")
-        { startHealth = 100f; damage = 15f; }
+        enemySprite = GetComponent<SpriteRenderer>();
+        enemyAnimator = GetComponent<Animator>();
         player = FindObjectOfType<FightingControlls>();
         playerHealth = FindObjectOfType<PlayerGrowth>();
         health = startHealth;
@@ -48,19 +45,22 @@ public class EnemyController : MonoBehaviour
 
     public void GetHit(float damage)
     {
+        TotalDamage += damage;
         health -= damage;
 
         if (health > 0)
         {
-            float percentage = (damage / startHealth) ;
-            if (gameObject.tag == "enemyMedium")
-            {  percentage *= 3;  }
-            if (gameObject.tag == "enemyBig")
-            { percentage *= 5;  }
-            if (gameObject.tag == "enemyBoss")
-            { percentage *= 10;  }
-            Vector3 tempPercentage = new Vector3(percentage, 0);
-            healthMask.transform.position -= tempPercentage;
+            float percentage = (TotalDamage / startHealth) ;
+            //if (gameObject.tag == "enemyMedium")
+            //{  percentage *= 3;  }
+            //if (gameObject.tag == "enemyBig")
+            //{ percentage *= 5;  }
+            //if (gameObject.tag == "enemyBoss")
+            //{ percentage *= 10;  }
+           
+            Vector3 tempPercentage = new Vector2(-percentage, 0.65f);
+            maskHealth.anchoredPosition = tempPercentage;
+            //healthMask.transform.position -= tempPercentage;
             Debug.Log(percentage);
         }
 
@@ -121,7 +121,7 @@ public class EnemyController : MonoBehaviour
                 }
                 if (gameObject.tag == "enemyBig")
                 {
-                    mood = moodEnum.Ignore;
+                    mood = moodEnum.Fight;
                 }
                 break;
             case 5:
@@ -162,16 +162,25 @@ public class EnemyController : MonoBehaviour
         switch(mood)
         {
             case moodEnum.Fight:
-                enemySprite.color = Color.red;
+                NoBool();
+                enemyAnimator.SetBool("Angry", true);
                 break;
             case moodEnum.Ignore:
-                enemySprite.color = Color.gray;
+                NoBool();
+                enemyAnimator.SetBool("Bored", true);
                 break;
             case moodEnum.Squash:
-                startHealth = 1;
-                enemySprite.color = Color.blue;
+                NoBool();
+                enemyAnimator.SetBool("Scared", true);
                 break;
         }
+    }
+
+    private void NoBool()
+    {
+        enemyAnimator.SetBool("Angry", false);
+        enemyAnimator.SetBool("Scared", false);
+        enemyAnimator.SetBool("Bored", false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -210,11 +219,11 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator AttackBehaviour()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         if (state == stateEnum.Attack)
         {
             playerHealth.changeHealth(-damage);
         }
-        yield return null;
+        yield break;
     }
 }

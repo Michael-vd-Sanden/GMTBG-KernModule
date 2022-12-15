@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 5d4daff38e3d9174b873918abcf2c1d4
+guid: 1a31e9e1f0559a547b612d825cdafccd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8596640243658272642
-    second: Enemy_0
+      213: -4277592464670551826
+    second: EnemyAngry_0
   - first:
-      213: -7642239419928554605
-    second: Enemy_1
+      213: -4698404571834155696
+    second: EnemyAngry_1
   - first:
-      213: -3876759189950653258
-    second: Enemy_2
+      213: -8008727568390497303
+    second: EnemyAngry_2
   - first:
-      213: -5720429097031363069
-    second: Enemy_3
+      213: -7587925026203424026
+    second: EnemyAngry_3
   - first:
-      213: -7911572535675539837
-    second: Enemy_4
+      213: 3881727266597278865
+    second: EnemyAngry_4
   - first:
-      213: 5398807837072792716
-    second: Enemy_5
+      213: 1452033454099955596
+    second: EnemyAngry_5
   - first:
-      213: -3763824636803078212
-    second: Enemy_6
+      213: 3928253945572337209
+    second: EnemyAngry_6
   - first:
-      213: 8273598715916126338
-    second: Enemy_7
+      213: 1516886792971555308
+    second: EnemyAngry_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -61,7 +61,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -89,7 +89,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -101,31 +101,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 128
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 128
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 128
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -139,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy_0
+      name: EnemyAngry_0
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +129,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28f241131c66d4770800000000000000
-      internalID: 8596640243658272642
+      spriteID: ee09c692150f2a4c0800000000000000
+      internalID: -4277592464670551826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1
+      name: EnemyAngry_1
       rect:
         serializedVersion: 2
         x: 16
@@ -174,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 393dba6ecbf41f590800000000000000
-      internalID: -7642239419928554605
+      spriteID: 05df0c46fe9ebceb0800000000000000
+      internalID: -4698404571834155696
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_2
+      name: EnemyAngry_2
       rect:
         serializedVersion: 2
         x: 32
@@ -195,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bc92438e0cf23ac0800000000000000
-      internalID: -3876759189950653258
+      spriteID: 9ebd43765b84bd090800000000000000
+      internalID: -8008727568390497303
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_3
+      name: EnemyAngry_3
       rect:
         serializedVersion: 2
         x: 48
@@ -216,14 +192,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 30613ac5b04fc90b0800000000000000
-      internalID: -5720429097031363069
+      spriteID: 6ea29d6246642b690800000000000000
+      internalID: -7587925026203424026
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_4
+      name: EnemyAngry_4
       rect:
         serializedVersion: 2
         x: 0
@@ -237,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38ea25432b2743290800000000000000
-      internalID: -7911572535675539837
+      spriteID: 1949a78f16aaed530800000000000000
+      internalID: 3881727266597278865
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_5
+      name: EnemyAngry_5
       rect:
         serializedVersion: 2
         x: 16
@@ -258,14 +234,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8c915baf1b6cea40800000000000000
-      internalID: 5398807837072792716
+      spriteID: c8f7c99bbb8a62410800000000000000
+      internalID: 1452033454099955596
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_6
+      name: EnemyAngry_6
       rect:
         serializedVersion: 2
         x: 32
@@ -279,14 +255,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb72d763f6534cbc0800000000000000
-      internalID: -3763824636803078212
+      spriteID: 936ad559626f38630800000000000000
+      internalID: 3928253945572337209
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_7
+      name: EnemyAngry_7
       rect:
         serializedVersion: 2
         x: 48
@@ -300,8 +276,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2880f4c523ab1d270800000000000000
-      internalID: 8273598715916126338
+      spriteID: ce11d8b50801d0510800000000000000
+      internalID: 1516886792971555308
       vertices: []
       indices: 
       edges: []

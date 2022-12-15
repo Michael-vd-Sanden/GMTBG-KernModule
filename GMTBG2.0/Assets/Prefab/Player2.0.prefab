@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 6375148319694342864}
   - component: {fileID: 6375148319694342867}
   - component: {fileID: 6375148319694342868}
+  - component: {fileID: 8189438707738025547}
   m_Layer: 0
   m_Name: Player2.0
   m_TagString: Player
@@ -160,7 +161,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -6447722072507503168, guid: 10f3cacccb0c4c547be76836eba20664, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -213,11 +214,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &6375148319694342864
 MonoBehaviour:
@@ -231,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337a1ed125b526646a1a44c1b6cf35bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody2d: {fileID: 0}
   walkingSpeed: 200
   jumpForce: 6
   isGroundedChecker: {fileID: 6375148320323397946}
@@ -261,6 +263,7 @@ MonoBehaviour:
   movement: {fileID: 6375148319694342864}
   attackDamage: 0
   sceneManager: {fileID: 0}
+  effects: {fileID: 0}
 --- !u!95 &6375148319694342868
 Animator:
   serializedVersion: 3
@@ -280,6 +283,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8189438707738025547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375148319694342877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabadb3fe524e7c4e9fe3f8ccb748598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 5
+  startHealth: 3
+  timeInvincible: 2
+  scenes: {fileID: 0}
+  life1: {fileID: 0}
+  life2: {fileID: 0}
+  life3: {fileID: 0}
+  life4: {fileID: 0}
+  life5: {fileID: 0}
 --- !u!1 &6375148320323397945
 GameObject:
   m_ObjectHideFlags: 0

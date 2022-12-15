@@ -10,6 +10,7 @@ public class FightingControlls : MonoBehaviour
     [SerializeField] private PlayerController movement;
     [SerializeField] public float attackDamage;
     [SerializeField] private SceneSelect sceneManager;
+    [SerializeField] private EffectController effects;
 
     private PlayerGrowth player;
 
@@ -22,6 +23,11 @@ public class FightingControlls : MonoBehaviour
     void Update()
     {
         SwingSword();
+    }
+
+    public void SetAttackDamage(float newDamage)
+    {
+        attackDamage = newDamage;
     }
 
     public void SwingSword()
@@ -55,6 +61,10 @@ public class FightingControlls : MonoBehaviour
         else if (collision.tag == "sceneTrigger")
         {
             sceneManager.loadMainScene();
+        }
+        else if (collision.tag == "finish")
+        {
+            effects.Win();
         }
     }
 

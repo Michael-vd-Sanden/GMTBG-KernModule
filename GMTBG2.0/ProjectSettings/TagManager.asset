@@ -10,6 +10,7 @@ TagManager:
   - enemyBoss
   - spawnPoint
   - sceneTrigger
+  - finish
   layers:
   - Default
   - TransparentFX
