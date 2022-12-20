@@ -129,6 +129,7 @@ public class PlayerGrowth : MonoBehaviour
                 return;
             }
             controller.playerAnimator.SetTrigger("hit");
+            controller.swordAnimator.SetTrigger("hit");
             isInvincible = true;
             invincibleTimer = timeInvincible;
         }

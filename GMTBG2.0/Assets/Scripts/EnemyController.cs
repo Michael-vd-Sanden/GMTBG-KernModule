@@ -5,11 +5,12 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float startHealth;
-    [SerializeField] private FightingControlls player;
+    [SerializeField] private PlayerController player;
     [SerializeField] private PlayerGrowth playerHealth;
     [SerializeField] private SpriteMask healthMask;
     [SerializeField] private RectTransform maskHealth;
     [SerializeField] private EffectController effects;
+    [SerializeField] private Animator enemyHitAnimator;
     private float TotalDamage = 0f;
 
     private SpriteRenderer enemySprite;
@@ -17,7 +18,7 @@ public class EnemyController : MonoBehaviour
 
     private float damage = 1f;
     [SerializeField] private float health;
-    public float walkingSpeed = 100f;
+    public float walkingSpeed = 1f;
     public enum stateEnum { Walk, Attack}
     public stateEnum state;
 
@@ -31,7 +32,7 @@ public class EnemyController : MonoBehaviour
     {
         enemySprite = GetComponent<SpriteRenderer>();
         enemyAnimator = GetComponent<Animator>();
-        player = FindObjectOfType<FightingControlls>();
+        player = FindObjectOfType<PlayerController>();
         playerHealth = FindObjectOfType<PlayerGrowth>();
         health = startHealth;
     }
@@ -47,6 +48,7 @@ public class EnemyController : MonoBehaviour
     {
         TotalDamage += damage;
         health -= damage;
+        enemyHitAnimator.SetTrigger("hit");
 
         if (health > 0)
         {
@@ -71,6 +73,7 @@ public class EnemyController : MonoBehaviour
                 effects.Win();
             }
             playerHealth.changeHealth(1f);
+            player.scores.upKills();
             Destroy(gameObject);
         }
     }
@@ -164,14 +167,17 @@ public class EnemyController : MonoBehaviour
             case moodEnum.Fight:
                 NoBool();
                 enemyAnimator.SetBool("Angry", true);
+                walkingSpeed = 3f;
                 break;
             case moodEnum.Ignore:
                 NoBool();
                 enemyAnimator.SetBool("Bored", true);
+                walkingSpeed = 1f;
                 break;
             case moodEnum.Squash:
                 NoBool();
                 enemyAnimator.SetBool("Scared", true);
+                walkingSpeed = 0.5f;
                 break;
         }
     }

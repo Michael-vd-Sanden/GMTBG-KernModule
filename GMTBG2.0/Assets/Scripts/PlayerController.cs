@@ -25,11 +25,14 @@ public class PlayerController : MonoBehaviour
 
     private bool facingRight = true;
     [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private SpriteRenderer swordSprite;
     [SerializeField] public SpriteMask healthMask;
     [SerializeField] public Animator playerAnimator;
+    [SerializeField] public Animator swordAnimator;
     [SerializeField] private SceneSelect scenes;
 
     [SerializeField] public GameObject DeathScreen;
+    [SerializeField] public ResetScores scores;
 
     void Start()
     {
@@ -63,11 +66,15 @@ public class PlayerController : MonoBehaviour
         if (x > 0 && !facingRight)
         {
             playerSprite.flipX = false;
+            swordSprite.flipX = false;
+            swordSprite.transform.localPosition = new Vector3(0.375f, 0.064f, 0);
             facingRight = true;
         }
         else if(x < 0 && facingRight)
         {
             playerSprite.flipX = true;
+            swordSprite.flipX = true;
+            swordSprite.transform.localPosition = new Vector3(-0.375f, 0.064f, 0);
             facingRight = false;
         }
         rigidbody2d.velocity = new Vector2(moveBy, rigidbody2d.velocity.y);
@@ -142,6 +149,7 @@ public class PlayerController : MonoBehaviour
 
     public void respawn()
     {
+        scores.upDeaths();
         gameObject.transform.position = spawnPoint.position;
     }
 
